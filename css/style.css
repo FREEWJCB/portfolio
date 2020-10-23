@@ -422,4 +422,20 @@ img{
         padding: 10px 20px;
         font-size: 16px;
     }
+
+    .heading h2{
+        font-size: 24px;
+    }
+
+    .contentBx h3{
+        font-size: 20px;
+    }
+
+    .content{
+        flex-direction: column;
+    }
+
+    .w50{
+        margin-bottom: 20px;
+    }
 }
