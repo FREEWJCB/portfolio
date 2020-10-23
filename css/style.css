@@ -438,4 +438,8 @@ img{
     .w50{
         margin-bottom: 20px;
     }
+
+    .services .content .servicesBx{
+        margin: 10px;
+    }
 }
