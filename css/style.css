@@ -442,4 +442,9 @@ img{
     .services .content .servicesBx{
         margin: 10px;
     }
+
+    .work .content .workBx{
+        width: 100%;
+        padding: 10px;
+    }
 }
