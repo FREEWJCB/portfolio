@@ -458,4 +458,8 @@ img{
     .testimonial .content .testimonialBx h3{
         margin-top: 20px;
     }
+
+    .contactInfo{
+        margin: 20px 0;
+    }
 }
