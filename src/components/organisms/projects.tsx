@@ -3,38 +3,35 @@ import { ProjectCard } from "@/components/atoms/project-card"
 
 const projects = [
   {
-    title: "E-commerce Full Stack",
+    title: "PokeApi App",
     description:
-      "Plataforma de comercio electrónico completa con React, Node.js y PostgreSQL. Incluye autenticación, carrito de compras y panel de administración.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
-    liveUrl: "https://ejemplo.com",
-    githubUrl: "https://github.com/usuario/proyecto",
+      "Plataforma de pokemon donde se muestra los datos de los pokemons con Node.js, Next.js, Tailwind CSS, TypeScript y vitest.",
+    image: "/pokeapi.png",
+    technologies: ["Node.js", "Next.js", "Tailwind CSS", "TypeScript", "Vitest"],
+    liveUrl: "https://pkm-pokedex.vercel.app/",
+    githubUrl: "https://github.com/FREEWJCB/pkm-pokedex.git",
   },
   {
-    title: "Dashboard Analytics",
-    description:
-      "Dashboard interactivo para análisis de datos con gráficos en tiempo real, construido con Next.js y Python.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["Next.js", "Python", "Chart.js", "MongoDB"],
-    liveUrl: "https://ejemplo.com",
-    githubUrl: "https://github.com/usuario/proyecto",
+    title: "Soccer Leagues",
+    description: "Plataforma de estadisticas de futbol por ligas y equipos, construido con vue.js.",
+    image: "/soccer.png",
+    technologies: ["Node.js", "Javascript", "Vue.js", "Vitest", "Tailwind CSS"],
+    liveUrl: "https://soccer-leagues-tau.vercel.app/",
+    githubUrl: "https://github.com/FREEWJCB/soccer-leagues.git",
   },
   {
-    title: "API REST Microservicios",
-    description:
-      "Arquitectura de microservicios con Node.js, Docker y Kubernetes para una aplicación de gestión empresarial.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["Node.js", "Docker", "Kubernetes", "Redis"],
-    githubUrl: "https://github.com/usuario/proyecto",
+    title: "API REST Microservicios of Store",
+    description: "Arquitectura de microservicios con Nest.js, api rest de carrito de venta.",
+    image: "/nest.svg",
+    technologies: ["Node.js", "Nest.js", "Sequelize", "Postgresql", "Jest"],
+    githubUrl: "https://github.com/FREEWJCB/store-ms",
   },
   {
-    title: "App Móvil React Native",
-    description: "Aplicación móvil multiplataforma para gestión de tareas con sincronización en tiempo real.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["React Native", "Firebase", "Redux", "TypeScript"],
-    liveUrl: "https://ejemplo.com",
-    githubUrl: "https://github.com/usuario/proyecto",
+    title: "User Challange",
+    description: "Api rest de retos de usuarios con laravel.",
+    image: "/laravel.png",
+    technologies: ["Laravel", "Postgresql", "PHPUNIT"],
+    githubUrl: "https://github.com/FREEWJCB/challange",
   },
 ]
 
