@@ -41,22 +41,6 @@ const projects = [
     technologies: ["Laravel", "Postgresql", "PHPUNIT"],
     githubUrl: "https://github.com/FREEWJCB/challange",
   },
-  {
-    title: "E-commerce Platform",
-    description: "Plataforma de comercio electrónico completa con React, Node.js y Stripe.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
-    liveUrl: "https://ejemplo.com",
-    githubUrl: "https://github.com/usuario/ecommerce",
-  },
-  {
-    title: "Task Management App",
-    description: "Aplicación de gestión de tareas con autenticación y colaboración en tiempo real.",
-    image: "/placeholder.svg?height=250&width=400",
-    technologies: ["Vue.js", "Firebase", "Vuex", "Socket.io"],
-    liveUrl: "https://ejemplo.com",
-    githubUrl: "https://github.com/usuario/task-app",
-  },
 ]
 
 export function ProjectsSlider() {
