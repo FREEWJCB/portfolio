@@ -25,13 +25,15 @@ export function Hero() {
               </Paragraph>
 
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
-                >
-                  <Download className="w-5 h-5 mr-2" />
-                  Descargar CV
-                </Button>
+                <a href="/curriculum.pdf" download className="w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  >
+                    <Download className="w-5 h-5 mr-2" />
+                    Descargar CV
+                  </Button>
+                </a>
 
                 <Button
                   size="lg"
