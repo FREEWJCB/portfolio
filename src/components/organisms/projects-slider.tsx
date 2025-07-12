@@ -1,6 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
+import { motion } from "framer-motion"
+import useEmblaCarousel from "embla-carousel-react"
+import Autoplay from "embla-carousel-autoplay"
 import { H2 } from "@/components/atoms/typography"
 import { ProjectCard } from "@/components/atoms/project-card"
 import { Button } from "@/components/atoms/button"
@@ -57,38 +60,56 @@ const projects = [
 ]
 
 export function ProjectsSlider() {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
-  // Autoplay functionality
+  const autoplayPlugin = Autoplay({ delay: 4000, stopOnInteraction: false })
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "start",
+      skipSnaps: false,
+      dragFree: false,
+    },
+    isAutoPlaying ? [autoplayPlugin] : [],
+  )
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index)
+    },
+    [emblaApi],
+  )
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    setSelectedIndex(emblaApi.selectedScrollSnap())
+  }, [emblaApi])
+
   useEffect(() => {
-    if (!isAutoPlaying) return
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.ceil(projects.length / 2))
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.ceil(projects.length / 2))
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + Math.ceil(projects.length / 2)) % Math.ceil(projects.length / 2))
-  }
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index)
-  }
+    if (!emblaApi) return
+    onSelect()
+    emblaApi.on("select", onSelect)
+    emblaApi.on("reInit", onSelect)
+  }, [emblaApi, onSelect])
 
   const toggleAutoplay = () => {
+    if (isAutoPlaying) {
+      autoplayPlugin.stop()
+    } else {
+      autoplayPlugin.play()
+    }
     setIsAutoPlaying(!isAutoPlaying)
   }
-
-  const startIndex = currentIndex * 2
-  const visibleProjects = projects.slice(startIndex, startIndex + 2)
 
   return (
     <section
@@ -100,7 +121,13 @@ export function ProjectsSlider() {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-violet-300/20 to-purple-300/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 animate-fadeInUp">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <H2 className="mb-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">
             Proyectos Destacados
           </H2>
@@ -127,67 +154,95 @@ export function ProjectsSlider() {
               )}
             </Button>
           </div>
-        </div>
+        </motion.div>
 
-        <div
-          className="relative"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
-        >
-          {/* Slider Container */}
-          <div className="overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-8 animate-fadeInUp">
-              {visibleProjects.map((project, index) => (
-                <div key={`${project.title}-${startIndex + index}`} className="transform transition-all duration-500">
+        <div className="relative">
+          {/* Embla Carousel */}
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.title}
+                  className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-4"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
                   <ProjectCard {...project} />
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hover:scale-110 transition-all duration-200 w-14 h-14 rounded-full p-0 bg-gradient-to-r from-purple-500/90 to-indigo-500/90 hover:from-purple-600 hover:to-indigo-600 border-none shadow-xl backdrop-blur-sm"
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollPrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hover:scale-110 transition-all duration-200 w-14 h-14 rounded-full p-0 bg-gradient-to-r from-purple-500/90 to-indigo-500/90 hover:from-purple-600 hover:to-indigo-600 border-none shadow-xl backdrop-blur-sm"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </Button>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hover:scale-110 transition-all duration-200 w-14 h-14 rounded-full p-0 bg-gradient-to-r from-purple-500/90 to-indigo-500/90 hover:from-purple-600 hover:to-indigo-600 border-none shadow-xl backdrop-blur-sm"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hover:scale-110 transition-all duration-200 w-14 h-14 rounded-full p-0 bg-gradient-to-r from-purple-500/90 to-indigo-500/90 hover:from-purple-600 hover:to-indigo-600 border-none shadow-xl backdrop-blur-sm"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </Button>
+          </motion.div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-12 gap-3">
-            {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, index) => (
-              <button
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex justify-center mt-12 gap-3"
+          >
+            {projects.map((_, index) => (
+              <motion.button
                 key={index}
-                onClick={() => goToSlide(index)}
+                onClick={() => scrollTo(index)}
                 className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
+                  index === selectedIndex
                     ? "w-8 h-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg"
-                    : "w-3 h-3 bg-gray-300 dark:bg-gray-600 hover:bg-purple-400 dark:hover:bg-purple-500 hover:scale-125"
+                    : "w-3 h-3 bg-gray-300 dark:bg-gray-600 hover:bg-purple-400 dark:hover:bg-purple-500"
                 }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
               />
             ))}
-          </div>
+          </motion.div>
 
           {/* Project Counter */}
-          <div className="text-center mt-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mt-6"
+          >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 rounded-full backdrop-blur-sm border border-purple-200/50 dark:border-purple-600/50">
-              <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full animate-pulse"></div>
+              <motion.div
+                className="w-2 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              />
               <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
-                {startIndex + 1}-{Math.min(startIndex + 2, projects.length)} de {projects.length} proyectos
+                {selectedIndex + 1} de {projects.length} proyectos
               </span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
