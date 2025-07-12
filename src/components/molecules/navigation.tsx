@@ -19,11 +19,7 @@ export function Navigation() {
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-8">
         {navItems.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
-          >
+          <a key={item.href} href={item.href} className="text-gray-300 hover:text-white transition-colors font-medium">
             {item.label}
           </a>
         ))}
@@ -36,12 +32,12 @@ export function Navigation() {
         </Button>
 
         {isOpen && (
-          <div className="absolute top-12 right-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 min-w-[150px]">
+          <div className="absolute top-12 right-0 bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-4 min-w-[150px]">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="block py-2 text-gray-300 hover:text-white transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}

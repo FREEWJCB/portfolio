@@ -28,19 +28,17 @@ const backendSkills = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20 bg-gray-50/50 dark:bg-gray-800/50">
+    <section id="skills" className="py-20 bg-gray-800/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fadeInUp">
           <H2 className="mb-4">Habilidades Técnicas</H2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Tecnologías que domino tanto en frontend como backend
-          </p>
+          <p className="text-xl text-gray-300">Tecnologías que domino tanto en frontend como backend</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="animate-fadeInLeft">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Frontend</h3>
-            <div className="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 dark:from-gray-800/80 dark:to-gray-900/80 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-blue-200/30 dark:border-gray-700/50">
+            <h3 className="text-2xl font-bold text-white mb-8 text-center">Frontend</h3>
+            <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-gray-700/50">
               {frontendSkills.map((skill, index) => (
                 <div
                   key={skill.title}
@@ -58,8 +56,8 @@ export function Skills() {
           </div>
 
           <div className="animate-fadeInRight">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Backend</h3>
-            <div className="bg-gradient-to-br from-emerald-50/80 to-teal-50/80 dark:from-gray-800/80 dark:to-gray-900/80 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-emerald-200/30 dark:border-gray-700/50">
+            <h3 className="text-2xl font-bold text-white mb-8 text-center">Backend</h3>
+            <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-lg shadow-lg overflow-hidden backdrop-blur-sm border border-gray-700/50">
               {backendSkills.map((skill, index) => (
                 <div
                   key={skill.title}

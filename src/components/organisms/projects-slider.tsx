@@ -98,11 +98,11 @@ export function ProjectsSlider() {
   return (
     <section
       id="projects"
-      className="py-20 bg-gradient-to-br from-violet-50/70 via-purple-50/50 to-indigo-50/70 dark:from-gray-900/70 dark:via-gray-800/50 dark:to-gray-900/70 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-gray-900/70 via-gray-800/50 to-gray-900/70 relative overflow-hidden"
     >
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-purple-300/20 to-indigo-300/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-violet-300/20 to-purple-300/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-violet-300/20 to-purple-300/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -115,7 +115,7 @@ export function ProjectsSlider() {
           <H2 className="mb-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">
             Proyectos Destacados
           </H2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">Algunos de mis trabajos más recientes y destacados</p>
+          <p className="text-xl text-gray-300">Algunos de mis trabajos más recientes y destacados</p>
 
           {/* Autoplay control */}
           <div className="flex justify-center mt-6">
@@ -123,7 +123,7 @@ export function ProjectsSlider() {
               variant="outline"
               size="sm"
               onClick={toggleAutoplay}
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-purple-200/50 dark:border-purple-600/50 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200"
+              className="bg-gray-800/80 backdrop-blur-sm border-purple-600/50 hover:bg-purple-900/20 transition-all duration-200"
             >
               {isAutoPlaying ? (
                 <>
@@ -200,7 +200,7 @@ export function ProjectsSlider() {
                 className={`transition-all duration-300 rounded-full ${
                   index === selectedIndex
                     ? "w-8 h-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg"
-                    : "w-3 h-3 bg-gray-300 dark:bg-gray-600 hover:bg-purple-400 dark:hover:bg-purple-500"
+                    : "w-3 h-3 bg-gray-600 hover:bg-purple-500"
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
@@ -216,13 +216,13 @@ export function ProjectsSlider() {
             viewport={{ once: true }}
             className="text-center mt-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 rounded-full backdrop-blur-sm border border-purple-200/50 dark:border-purple-600/50">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800/80 rounded-full backdrop-blur-sm border border-purple-600/50">
               <motion.div
                 className="w-2 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               />
-              <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+              <span className="text-sm text-gray-300 font-medium">
                 {selectedIndex + 1} de {projects.length} proyectos
               </span>
             </div>

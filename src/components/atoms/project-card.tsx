@@ -30,7 +30,7 @@ export function ProjectCard({ title, description, image, technologies, liveUrl, 
 
   return (
     <div className="group relative rounded-2xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 p-[1px] shadow-xl transition-all hover:scale-[1.02]">
-      <div className="relative h-full w-full rounded-2xl bg-background p-6 text-white bg-gradient-to-br from-[#0f0f1c] to-[#1b1b2e]">
+      <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-[#0f0f1c] to-[#1b1b2e] p-6 text-white">
         <div className="relative overflow-hidden h-48 mb-4 rounded-lg">
           <Image
             src={image || "/placeholder.svg"}
