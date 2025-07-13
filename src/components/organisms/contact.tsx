@@ -1,27 +1,31 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { H2 } from "@/components/atoms/typography"
 import { Button } from "@/components/atoms/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Mail, Phone, MapPin, Send, User, MessageCircle } from "lucide-react"
+import { useActionState } from "react"
+import { sendEmail } from "@/app/actions"
 
-export function Contact() {
+// Definir el tipo para el estado de la acción de forma explícita
+type ContactFormState = {
+  success: boolean
+  message: string
+} | null
+
+export function Contact(): React.ReactElement {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Aquí implementarías el envío del formulario
-    console.log("Formulario enviado:", formData)
-  }
+  // Tipado explícito para useActionState
+  const [state, formAction] = useActionState<ContactFormState, FormData>(sendEmail, null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -29,6 +33,13 @@ export function Contact() {
       [e.target.name]: e.target.value,
     })
   }
+
+  // Usar useEffect para resetear el formulario después de un envío exitoso
+  useEffect(() => {
+    if (state?.success) {
+      setFormData({ name: "", email: "", message: "" })
+    }
+  }, [state]) // Dependencia en 'state' para que se ejecute cuando cambie
 
   return (
     <section
@@ -114,7 +125,7 @@ export function Contact() {
           <div className="animate-fadeInRight">
             <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 p-8 rounded-2xl shadow-2xl backdrop-blur-sm border border-gray-700/50 hover:shadow-3xl transition-shadow duration-300">
               <h3 className="text-2xl font-bold text-white mb-6 text-center">Envíame un mensaje</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form action={formAction} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-gray-300 font-medium">
                     Nombre completo
@@ -167,6 +178,11 @@ export function Contact() {
                   <Send className="w-5 h-5 mr-2" />
                   Enviar Mensaje
                 </Button>
+                {state && (
+                  <p className={`mt-4 text-center ${state.success ? "text-green-500" : "text-red-500"}`}>
+                    {state.message}
+                  </p>
+                )}
               </form>
             </div>
           </div>
