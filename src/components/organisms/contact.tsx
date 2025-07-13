@@ -103,12 +103,12 @@ export function Contact(): React.ReactElement {
                 </li>
                 <li className="flex items-center gap-3 p-2 hover:bg-gray-700/30 rounded-lg transition-colors">
                   <div className="w-2 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
-                  APIs REST y GraphQL
+                  APIs REST, GRPC y GraphQL
                 </li>
-                <li className="flex items-center gap-3 p-2 hover:bg-gray-700/30 rounded-lg transition-colors">
+                {/* <li className="flex items-center gap-3 p-2 hover:bg-gray-700/30 rounded-lg transition-colors">
                   <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                   Aplicaciones móviles
-                </li>
+                </li> */}
                 <li className="flex items-center gap-3 p-2 hover:bg-gray-700/30 rounded-lg transition-colors">
                   <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
                   Consultoría técnica
